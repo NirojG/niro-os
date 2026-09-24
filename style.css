@@ -12,7 +12,7 @@
 
 body, html { margin: 0; padding: 0; height: 100%; background: var(--bg-grad); font-family: 'Segoe UI', system-ui, sans-serif; overflow: hidden; color: white; user-select: none; touch-action: none; background-size: cover; background-position: center; transition: background 0.5s ease; }
 
-/* --- CINEMATIC BOOTLOADER (Mobile First) --- */
+/* --- bootsequence (Mobile First) --- */
 #bootloader { position: fixed; inset: 0; background: #020617; z-index: 10000; display: flex; flex-direction: column; padding: 20px; font-family: 'Courier New', monospace; color: #94a3b8; transition: opacity 0.8s ease, transform 0.8s ease; }
 #boot-logs { flex-grow: 1; overflow: hidden; font-size: clamp(11px, 3vw, 14px); line-height: 1.5; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 20px; }
 #boot-center { display: none; flex-direction: column; justify-content: center; align-items: center; height: 100%; position: absolute; inset: 0; background: radial-gradient(circle at center, #0f172a 0%, #020617 100%); }
@@ -87,9 +87,7 @@ body, html { margin: 0; padding: 0; height: 100%; background: var(--bg-grad); fo
 #app-sysmon { width: 450px; height: 300px; top: 80px; right: 50px; left: auto;}
 #app-crypto { width: 400px; height: 450px; top: 120px; left: 280px; }
 
-/* ----------------------------------------------------------------------
-   TERMINAL: CRISP & TOUCH-FRIENDLY
-   ---------------------------------------------------------------------- */
+/* TERMINAL: CRISP & TOUCH-FRIENDLY*/
 #app-term .win-content { background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03)); background-size: 100% 4px, 3px 100%; cursor: text; }
 #term-body { font-family: 'Fira Code', 'Consolas', monospace; font-size: 14px; color: var(--term-color); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
