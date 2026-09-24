@@ -1,90 +1,133 @@
 # Niro_OS
 
+A web-based desktop and terminal simulator built with HTML, CSS, JavaScript, and PHP.
 
+Niro_OS recreates an operating system-style environment directly in the browser, with an interactive terminal, windowed applications, live widgets, and backend services connecting to external APIs.
 
-A web-based desktop and terminal (Operating System) simulator built using HTML, CSS, JavaScript, and PHP. 
-
-
-
-The project includes an interactive terminal, windowed mini-apps, live weather/market widgets, and a backend chat system with both peer-to-peer and AI API integrations.
-
-
-
-🔗 **Live Link:** [niroos.nirojgautam.com.np] https://niroos.nirojgautam.com.np
+🔗 **Live Demo:** https://niroos.nirojgautam.com.np
 
 ---
-
-
 
 ## Why I Built This
 
+I wanted to challenge myself to build something that feels like a small operating system while working with the browser's core technologies.
 
+Instead of using a front-end framework, I built the interface with vanilla JavaScript to get a better understanding of DOM manipulation, event handling, window management, and asynchronous API requests.
 
-I wanted to challenge myself to build a functional, operating-system-like UI directly in the browser while practicing full-stack web development. Instead of using heavy front-end frameworks, I built this with vanilla JavaScript to better understand core DOM manipulation, event loops, and asynchronous API handling.
-
-
-
-On the backend, I wanted hands-on practice handling server requests, communicating with third-party APIs via cURL, and securing database credentials.
-
-
+On the backend, I wanted to practice handling server-side requests, working with third-party APIs using cURL, and keeping API credentials away from the client side.
 
 ---
 
-
-
 ## Features
 
+### Terminal Emulator
 
+A custom command-line interface with commands including:
 
-**Terminal Emulator:** Custom command-line interface supporting native system commands (`whoami`, `uptime`, `neofetch`, `calc`) as well as an AI chat fallback.
-**Window Management:** Draggable, stackable, and responsive desktop windows for different apps.
-**Embedded Apps:**
-**NiroCode:** In-browser live HTML/CSS/JS code preview.
-**WikiSearch:** Wikipedia API lookup utility.
-**Universal Converter:** Live currency and unit exchange calculator.
-**Video Room:** Quick video conference launcher powered by Jitsi Meet.
+* `whoami`
+* `uptime`
+* `neofetch`
+* `calc`
 
-**NiroVision:** Image generation tool using public AI endpoints.
-**Live Widgets:** Real-time system monitor, local weather (via Open-Meteo \& GeoJS), and crypto price tracking (via CoinGecko).
-**Backend APIs:**
+The terminal also includes an AI chat fallback for commands that are not handled locally.
 
-`bridge.php` `chat_api.php`: Handles server-side API requests to external LLM providers without exposing keys to the browser.
+### Window Management
 
-`heartbeat.php`: Database-backed active session counter.
+* Draggable application windows
+* Window stacking and focus management
+* Responsive desktop layout
+* Minimize, maximize, and close controls
 
+### Embedded Apps
 
+**NiroCode**
+In-browser HTML, CSS, and JavaScript editor with live preview.
 
+**WikiSearch**
+Wikipedia search utility using the Wikipedia API.
 
+**Universal Converter**
+Currency and unit conversion using live exchange data.
 
+**Video Room**
+Quick video conference launcher powered by Jitsi Meet.
 
+**NiroVision**
+Image generation tool using public AI endpoints.
 
-\## Tech Stack
+### Live Widgets
 
+* System monitor
+* Local weather using Open-Meteo and GeoJS
+* Cryptocurrency prices using CoinGecko
 
+### Backend APIs
 
-\- \*\*Frontend:\*\* HTML5, CSS3, Vanilla JavaScript (ES6+)
+`bridge.php` and `chat_api.php` handle server-side requests to external LLM providers without exposing API keys to the browser.
 
-\- \*\*Backend:\*\* PHP 8
+`heartbeat.php` uses the database to track active sessions.
 
-\- \*\*Database:\*\* MySQL
+---
 
-\- \*\*APIs Used:\*\* Open-Meteo, CoinGecko, Wikipedia REST API, Groq API, Jitsi Meet API
+## Tech Stack
 
+* **Frontend:** HTML5, CSS3, Vanilla JavaScript (ES6+)
+* **Backend:** PHP 8
+* **Database:** MySQL
+* **APIs:** Open-Meteo, GeoJS, CoinGecko, Wikipedia REST API, Groq API, Jitsi Meet
 
+---
 
-\---
+## Local Setup
 
+### 1. Clone the repository
 
+```bash
+git clone https://github.com/NirojG/niro-os.git
+cd niro-os
+```
 
-\## Local Setup
+### 2. Configure the backend
 
+Set up a PHP-compatible web server and configure the required database credentials and API keys.
 
+Make sure sensitive credentials are stored on the server side and are not exposed in frontend JavaScript.
 
-1\. \*\*Clone the repository:\*\*
+### 3. Run the project
 
-&#x20;  ```bash
+Place the project in your PHP server's web directory and open it through your local development server.
 
-&#x20;  git clone \[https://github.com/NirojG/niro-os.git](https://github.com/NirojG/niro-os.git)
+For example:
 
-&#x20;  cd niro-os
+```text
+http://localhost/niro-os
+```
 
+---
+
+## Project Structure
+
+```text
+niro-os/
+├── index.html
+├── css/
+├── js/
+├── apps/
+├── api/
+├── bridge.php
+├── chat_api.php
+├── heartbeat.php
+└── README.md
+```
+
+> The exact structure may vary depending on the current version of the project.
+
+---
+
+## Author
+
+**Niroj Gautam**
+
+Business Information Technology student focused on cloud infrastructure, software development, and AI-driven applications.
+
+🔗 **Portfolio:** https://nirojgautam.com.np
