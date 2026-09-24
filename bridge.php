@@ -1,5 +1,5 @@
 <?php
-// Niro_OS Secure API Bridge
+// Niro_OS Secure API Bridge for orchestration of the LLM 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type");
