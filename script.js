@@ -185,7 +185,7 @@ document.addEventListener('click', (e) => {
     if(sm && !e.target.closest('#start-menu') && !e.target.closest('.start-btn')) sm.style.display = 'none'; 
 });
 
-// Terminal Focus & Scroll Logic
+// Terminal Focus & Scroll Logic for better functionality
 let autoScrollEnabled = true;
 function setupScrollLogic() {
     const termBodyContainer = document.getElementById('term-body');
