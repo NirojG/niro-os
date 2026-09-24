@@ -1,4 +1,4 @@
-\# Niro\_OS
+# Niro_OS
 
 
 
@@ -10,15 +10,13 @@ The project includes an interactive terminal, windowed mini-apps, live weather/m
 
 
 
-🔗 \*\*Live Link:\*\* \[niroos.nirojgautam.com.np](https://niroos.nirojgautam.com.np)
+🔗 **Live Link:** [niroos.nirojgautam.com.np] https://niroos.nirojgautam.com.np
+
+---
 
 
 
-\---
-
-
-
-\## Why I Built This
+## Why I Built This
 
 
 
@@ -30,41 +28,33 @@ On the backend, I wanted hands-on practice handling server requests, communicati
 
 
 
-\---
+---
 
 
 
-\## Features
+## Features
 
 
 
-\- \*\*Terminal Emulator:\*\* Custom command-line interface supporting native system commands (`whoami`, `uptime`, `neofetch`, `calc`) as well as an AI chat fallback.
+**Terminal Emulator:** Custom command-line interface supporting native system commands (`whoami`, `uptime`, `neofetch`, `calc`) as well as an AI chat fallback.
+**Window Management:** Draggable, stackable, and responsive desktop windows for different apps.
+**Embedded Apps:**
+**NiroCode:** In-browser live HTML/CSS/JS code preview.
+**WikiSearch:** Wikipedia API lookup utility.
+**Universal Converter:** Live currency and unit exchange calculator.
+**Video Room:** Quick video conference launcher powered by Jitsi Meet.
 
-\- \*\*Window Management:\*\* Draggable, stackable, and responsive desktop windows for different apps.
+**NiroVision:** Image generation tool using public AI endpoints.
+**Live Widgets:** Real-time system monitor, local weather (via Open-Meteo \& GeoJS), and crypto price tracking (via CoinGecko).
+**Backend APIs:**
 
-\- \*\*Embedded Apps:\*\*
+`bridge.php` `chat_api.php`: Handles server-side API requests to external LLM providers without exposing keys to the browser.
 
-&#x20; - \*\*NiroCode:\*\* In-browser live HTML/CSS/JS code preview.
-
-&#x20; - \*\*WikiSearch:\*\* Wikipedia API lookup utility.
-
-&#x20; - \*\*Universal Converter:\*\* Live currency and unit exchange calculator.
-
-&#x20; - \*\*Video Room:\*\* Quick video conference launcher powered by Jitsi Meet.
-
-&#x20; - \*\*NiroVision:\*\* Image generation tool using public AI endpoints.
-
-\- \*\*Live Widgets:\*\* Real-time system monitor, local weather (via Open-Meteo \& GeoJS), and crypto price tracking (via CoinGecko).
-
-\- \*\*Backend APIs:\*\*
-
-&#x20; - `bridge.php` \& `chat\_api.php`: Handles server-side API requests to external LLM providers without exposing keys to the browser.
-
-&#x20; - `heartbeat.php`: Database-backed active session counter.
+`heartbeat.php`: Database-backed active session counter.
 
 
 
-\---
+
 
 
 
