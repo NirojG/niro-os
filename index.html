@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Niro_OS - System Environment</title>
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://meet.jit.si/external_api.js"></script>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body oncontextmenu="return false;">
+
+    <!-- Bootloader -->
+    <div id="bootloader">
+        <div id="boot-logs"></div>
+        <div id="boot-center">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <svg width="100" height="100" viewBox="0 0 100 100" fill="none" style="filter: drop-shadow(0 0 12px var(--accent)); animation: pulse 2s infinite;">
+                    <path d="M25 80 V20 L75 80 V20" stroke="var(--accent)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="25" cy="20" r="4" fill="#fff" />
+                    <circle cx="75" cy="80" r="4" fill="#fff" />
+                </svg>
+                <div class="glitch-logo" style="margin-top: 15px;">Niro_OS</div>
+            </div>
+            <div class="decrypt-box" id="decrypt-text">Starting system core... 0%</div>
+        </div>
+    </div>
+    
+    <!-- Top Navigation -->
+    <div id="top-bar">
+        <div class="logo">Niro_OS</div>
+        <div id="sys-nodes" style="color: var(--term-color); font-family: monospace; font-size: 11px; display: flex; align-items: center; gap: 8px; cursor: pointer; background: rgba(0, 255, 65, 0.1); padding: 2px 10px; border-radius: 12px; border: 1px solid rgba(0, 255, 65, 0.3); transition: 0.2s;" onclick="toggleApp('app-chat')">
+            <span class="gen-cursor" style="width: 6px; height: 6px; border-radius: 50%; background-color: var(--term-color); animation: blink 1s infinite;"></span>
+            <span id="node-count">1</span> Agent Active
+        </div>
+        <div id="clock">00:00</div>
+    </div>
+    
+    <!-- Desktop Icons -->
+    <div id="desktop">
+        <div class="desktop-icon" ondblclick="toggleApp('app-term')"><div class="icon">📟</div><div class="label">Terminal</div></div>
+        <div class="desktop-icon" ondblclick="toggleApp('app-code')"><div class="icon">🧑‍💻</div><div class="label">NiroCode</div></div>
+        <div class="desktop-icon" ondblclick="toggleApp('app-vision')"><div class="icon">👁️</div><div class="label">NiroVision</div></div>
+        <div class="desktop-icon" ondblclick="toggleApp('app-wiki')"><div class="icon">📚</div><div class="label">WikiSearch</div></div>
+        <div class="desktop-icon" ondblclick="toggleApp('app-calc')"><div class="icon">💱</div><div class="label">Converter</div></div>
+        <div class="desktop-icon" ondblclick="toggleApp('app-meet')"><div class="icon">📹</div><div class="label">Video Room</div></div>
+        <div class="desktop-icon" ondblclick="toggleApp('app-files')"><div class="icon">📁</div><div class="label">System</div></div>
+        <div class="desktop-icon" ondblclick="toggleApp('app-settings')"><div class="icon">⚙️</div><div class="label">Settings</div></div>
+    </div>
+
+    <!-- Desktop Widget -->
+    <div id="desktop-widget">
+        <div class="weather-hero"><div id="w-icon" class="weather-icon">☀️</div><div class="temp-big" id="weather-temp-main">--°</div></div>
+        <div class="widget-row"><span>Loc</span><span class="widget-val" id="weather-loc">SCANNING...</span></div>
+        <div class="widget-row"><span>Cond</span><span class="widget-val" id="weather-cond">Syncing...</span></div>
+        <div class="widget-row"><span>Wind</span><span class="widget-val" id="weather-wind">-- km/h</span></div>
+        <div class="scan-line"></div>
+        <div style="font-size: 9px; margin-top: 8px; color: var(--accent); opacity: 0.6; letter-spacing: 1px; text-align: center;">SYSTEM SYNC ACTIVE</div>
+    </div>
+
+    <!-- Context & Start Menus -->
+    <div id="context-menu">
+        <div class="menu-item" onclick="toggleApp('app-term')">📟 Open Terminal</div>
+        <div class="menu-item" onclick="toggleApp('app-settings')">⚙️ Personalize</div>
+        <hr style="border-color: var(--win-border); width: 100%; margin: 2px 0;">
+        <div class="menu-item" onclick="location.reload()">🔄 Reboot System</div>
+    </div>
+
+    <div id="start-menu">
+        <div class="menu-item" onclick="toggleApp('app-term'); toggleStartMenu();">📟 Terminal</div>
+        <div class="menu-item" onclick="toggleApp('app-code'); toggleStartMenu();">🧑‍💻 NiroCode Studio</div>
+        <div class="menu-item" onclick="toggleApp('app-vision'); toggleStartMenu();">👁️ NiroVision Gen</div>
+        <div class="menu-item" onclick="toggleApp('app-wiki'); toggleStartMenu();">📚 Wikipedia Explorer</div>
+        <div class="menu-item" onclick="toggleApp('app-calc'); toggleStartMenu();">💱 Converter</div>
+        <hr style="border-color: var(--win-border); width: 100%; margin: 5px 0;">
+        <div class="menu-item" onclick="toggleApp('app-chat'); toggleStartMenu();">💬 Global Comm Link</div>
+        <div class="menu-item" onclick="toggleApp('app-meet'); toggleStartMenu();">📹 Live Video Room</div>
+        <div class="menu-item" onclick="toggleApp('app-files'); toggleStartMenu();">📁 File Explorer</div>
+        <hr style="border-color: var(--win-border); width: 100%; margin: 5px 0;">
+        <div class="menu-item" onclick="toggleApp('app-settings'); toggleStartMenu();">⚙️ Settings</div>
+        <div class="menu-item" onclick="window.open('https://www.nirojgautam.com.np/', '_blank');">🌍 Web Uplink</div>
+    </div>
+
+    <!-- Application Windows -->
+    <div id="app-code" class="window" onmousedown="focusWin('app-code')">
+        <div class="title-bar" onmousedown="dragStart(event, 'app-code')" ontouchstart="dragStart(event, 'app-code')">
+            <div class="win-controls"><div class="dot c-red" onclick="closeApp('app-code')"></div><div class="dot c-yel" onclick="closeApp('app-code')"></div><div class="dot c-grn"></div></div>
+            <div class="win-title">NiroCode Studio</div>
+        </div>
+        <div class="win-content" style="padding: 0; display: flex; flex-direction: row; background: #020617;">
+            <textarea id="code-editor" style="width:50%; background: #0f172a; color: #38bdf8; border:none; border-right: 1px solid var(--win-border); padding: 15px; font-family: 'Fira Code', monospace; font-size: 14px; resize: none; outline: none;" spellcheck="false" oninput="runCode()">
+<style>
+  body { background: #111; color: white; font-family: sans-serif; text-align: center; padding-top: 50px; }
+  h1 { color: #00ff41; }
+</style>
+<h1>System Active</h1>
+<p>Live render engine engaged.</p></textarea>
+            <iframe id="code-preview" style="width:50%; border:none; background: #fff;"></iframe>
+        </div>
+    </div>
+
+    <div id="app-vision" class="window" onmousedown="focusWin('app-vision')">
+        <div class="title-bar" onmousedown="dragStart(event, 'app-vision')" ontouchstart="dragStart(event, 'app-vision')">
+            <div class="win-controls"><div class="dot c-red" onclick="closeApp('app-vision')"></div><div class="dot c-yel" onclick="closeApp('app-vision')"></div><div class="dot c-grn"></div></div>
+            <div class="win-title">NiroVision Generator</div>
+        </div>
+        <div class="win-content" style="background:#020617; font-family: monospace; display: flex; flex-direction: column;">
+            <div style="display:flex; gap:10px; margin-bottom:15px;">
+                <input type="text" id="vision-prompt" placeholder="Describe an image to generate..." style="flex-grow:1; background:rgba(0,0,0,0.5); color:#fff; border:1px solid var(--win-border); padding:10px; outline:none; border-radius:4px;">
+                <button class="hc-btn" style="width:auto; padding:10px 20px;" onclick="generateImage()">GENERATE</button>
+            </div>
+            <div style="flex-grow:1; border: 1px solid var(--win-border); border-radius: 4px; background: #000; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative;">
+                <div id="vision-loader" style="color: var(--accent); display: none; animation: pulse 1s infinite;">GENERATING...</div>
+                <img id="vision-result" style="max-width: 100%; max-height: 100%; display: none; object-fit: contain;">
+            </div>
+        </div>
+    </div>
+
+    <div id="app-wiki" class="window" onmousedown="focusWin('app-wiki')">
+        <div class="title-bar" onmousedown="dragStart(event, 'app-wiki')" ontouchstart="dragStart(event, 'app-wiki')">
+            <div class="win-controls"><div class="dot c-red" onclick="closeApp('app-wiki')"></div><div class="dot c-yel" onclick="closeApp('app-wiki')"></div><div class="dot c-grn"></div></div>
+            <div class="win-title">Wikipedia Explorer</div>
+        </div>
+        <div class="win-content" style="background:#020617; font-family: sans-serif;">
+            <div style="display:flex; gap:10px; margin-bottom:15px;">
+                <input type="text" id="wiki-query" placeholder="Search database..." style="flex-grow:1; background:rgba(0,0,0,0.5); color:#fff; border:1px solid var(--win-border); padding:10px; outline:none; border-radius:4px; font-family: monospace;">
+                <button class="hc-btn" style="width:auto; padding:10px 20px;" onclick="searchWiki()">SEARCH</button>
+            </div>
+            <div id="wiki-result" style="color: #cbd5e1; line-height: 1.6;">
+                <div style="text-align:center; color:#94a3b8; margin-top:40px; font-family:monospace;">Awaiting Query...</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-calc" class="window" onmousedown="focusWin('app-calc')">
+        <div class="title-bar" onmousedown="dragStart(event, 'app-calc')" ontouchstart="dragStart(event, 'app-calc')">
+            <div class="win-controls"><div class="dot c-red" onclick="closeApp('app-calc')"></div><div class="dot c-yel" onclick="closeApp('app-calc')"></div><div class="dot c-grn"></div></div>
+            <div class="win-title">Universal Converter</div>
+        </div>
+        <div class="win-content" style="background:#020617; font-family: monospace; display:flex; flex-direction:column; gap:20px;">
+            <div class="fs-section">Live Currency</div>
+            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                <input type="number" id="curr-amt" value="1" style="width:80px; background:rgba(0,0,0,0.5); color:#fff; border:1px solid var(--win-border); padding:8px; border-radius:4px; outline:none;">
+                <select id="curr-from" style="background:rgba(0,0,0,0.5); color:var(--accent); border:1px solid var(--accent); padding:8px; border-radius:4px; outline:none;"><option>USD</option><option>EUR</option><option>GBP</option><option>NPR</option><option>JPY</option><option>AUD</option></select>
+                <span style="color:#94a3b8;">TO</span>
+                <select id="curr-to" style="background:rgba(0,0,0,0.5); color:var(--accent); border:1px solid var(--accent); padding:8px; border-radius:4px; outline:none;"><option>EUR</option><option>USD</option><option>GBP</option><option>NPR</option><option>JPY</option><option>AUD</option></select>
+                <button class="hc-btn" style="width:auto; padding:8px 15px;" onclick="convertCurrency()">CALC</button>
+            </div>
+            <div id="curr-result" style="font-size: 24px; color: #27c93f; font-weight:bold;">--</div>
+            
+            <div class="fs-section" style="margin-top:10px;">Quick Units</div>
+            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                <input type="number" id="unit-amt" value="10" style="width:80px; background:rgba(0,0,0,0.5); color:#fff; border:1px solid var(--win-border); padding:8px; border-radius:4px; outline:none;">
+                <select id="unit-type" style="background:rgba(0,0,0,0.5); color:var(--accent); border:1px solid var(--accent); padding:8px; border-radius:4px; outline:none;">
+                    <option value="c-f">Celsius to Fahrenheit</option>
+                    <option value="f-c">Fahrenheit to Celsius</option>
+                    <option value="kg-lb">Kilograms to Pounds</option>
+                    <option value="km-mi">Kilometers to Miles</option>
+                </select>
+                <button class="hc-btn" style="width:auto; padding:8px 15px;" onclick="convertUnit()">CALC</button>
+            </div>
+            <div id="unit-result" style="font-size: 24px; color: #27c93f; font-weight:bold;">--</div>
+        </div>
+    </div>
+
+    <div id="app-meet" class="window" onmousedown="focusWin('app-meet')"><div class="title-bar" onmousedown="dragStart(event, 'app-meet')" ontouchstart="dragStart(event, 'app-meet')"><div class="win-controls"><div class="dot c-red" onclick="closeApp('app-meet'); closeMeeting();"></div><div class="dot c-yel" onclick="closeApp('app-meet')"></div><div class="dot c-grn"></div></div><div class="win-title">Secure Video Room</div></div><div class="win-content" style="padding: 0; display: flex; flex-direction: column; background: #000;"><div id="jitsi-container" style="flex-grow: 1; width: 100%; height: 100%;"></div><div style="height: 50px; background: rgba(15, 23, 42, 0.95); display: flex; justify-content: center; align-items: center; gap: 15px; border-top: 1px solid var(--win-border); flex-shrink: 0;"><button class="hc-btn" style="width: auto; padding: 6px 15px;" onclick="jitsiApi.executeCommand('toggleAudio')">🎙️ MIC</button><button class="hc-btn" style="width: auto; padding: 6px 15px;" onclick="jitsiApi.executeCommand('toggleVideo')">📹 CAM</button><button class="hc-btn danger" style="width: auto; padding: 6px 15px;" onclick="closeApp('app-meet'); closeMeeting();">END</button></div></div></div>
+    
+    <div id="app-chat" class="window" onmousedown="focusWin('app-chat')" style="width: 400px; height: 500px; top: 100px; left: 350px;"><div class="title-bar" onmousedown="dragStart(event, 'app-chat')" ontouchstart="dragStart(event, 'app-chat')"><div class="win-controls"><div class="dot c-red" onclick="closeApp('app-chat')"></div><div class="dot c-yel" onclick="closeApp('app-chat')"></div><div class="dot c-grn"></div></div><div class="win-title">Global Comm Link</div></div><div class="win-content" style="padding: 0; display: flex; flex-direction: column; background: #020617;"><div id="chat-box" style="flex-grow: 1; padding: 15px; overflow-y: auto; font-family: monospace; font-size: 13px; display: flex; flex-direction: column; gap: 10px;"><div style="color: #94a3b8; text-align: center; font-size: 11px;">[ SYSTEM CONNECTION ESTABLISHED ]</div></div><div style="display: flex; border-top: 1px solid var(--win-border); background: rgba(15, 23, 42, 0.9);"><input type="text" id="chat-input" placeholder="Broadcast message..." autocomplete="off" style="flex-grow: 1; background: transparent; border: none; color: var(--term-color); padding: 12px 15px; font-family: monospace; outline: none;"><button onclick="sendChatMessage()" style="background: transparent; border: none; border-left: 1px solid var(--win-border); color: var(--accent); padding: 0 15px; cursor: pointer; font-weight: bold; transition: 0.2s;">SEND</button></div></div></div>
+
+    <div id="app-term" class="window" onmousedown="focusWin('app-term')">
+        <div class="title-bar" onmousedown="dragStart(event, 'app-term')" ontouchstart="dragStart(event, 'app-term')">
+            <div class="win-controls"><div class="dot c-red" onclick="closeApp('app-term')"></div><div class="dot c-yel" onclick="closeApp('app-term')"></div><div class="dot c-grn"></div></div>
+            <div class="win-title">root@Niro_OS:~</div>
+        </div>
+        <div class="win-content" id="term-body">
+            <div id="term-out">
+                <div class="ai-msg">Niro_OS Online.<br><br>Hi root, I am the system agent built into this environment. I can control many things in a conversational manner in this web app.<br><br>Type <code>help</code> for local instructions, or tell me to open an app (e.g., <i>"open code"</i>).</div>
+            </div>
+            <div id="input-line">
+                <span class="ps1">root@Niro_OS:~$</span>
+                <textarea id="term-input" rows="1" autocomplete="off" spellcheck="false" autofocus></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-crypto" class="window" onmousedown="focusWin('app-crypto')"><div class="title-bar" onmousedown="dragStart(event, 'app-crypto')" ontouchstart="dragStart(event, 'app-crypto')"><div class="win-controls"><div class="dot c-red" onclick="closeApp('app-crypto')"></div><div class="dot c-yel" onclick="closeApp('app-crypto')"></div><div class="dot c-grn"></div></div><div class="win-title">Live Market</div></div><div class="win-content" style="font-family: monospace;"><div id="crypto-data"><div style="text-align:center; color: var(--accent); margin-top: 50px;">ESTABLISHING MARKET UPLINK...</div></div><div style="text-align: center; margin-top: 15px; font-size: 11px; color: #94a3b8;">Auto-updates every 60 seconds</div></div></div>
+
+    <div id="app-files" class="window" onmousedown="focusWin('app-files')"><div class="title-bar" onmousedown="dragStart(event, 'app-files')" ontouchstart="dragStart(event, 'app-files')"><div class="win-controls"><div class="dot c-red" onclick="closeApp('app-files')"></div><div class="dot c-yel" onclick="closeApp('app-files')"></div><div class="dot c-grn"></div></div><div class="win-title">NiroFS Drive</div></div><div class="win-content"><div class="fs-section">Network Links</div><div class="file-grid"><div class="file-item" onclick="window.open('https://www.nirojgautam.com.np/', '_blank')"><div class="file-icon">🌐</div><div class="file-name">Portfolio.url</div></div></div><div class="fs-section">System Executables</div><div class="file-grid"><div class="file-item" onclick="toggleApp('app-code');"><div class="file-icon">🧑‍💻</div><div class="file-name">nirocode.exe</div></div><div class="file-item" onclick="toggleApp('app-vision');"><div class="file-icon">👁️</div><div class="file-name">vision.exe</div></div><div class="file-item" onclick="toggleApp('app-wiki');"><div class="file-icon">📚</div><div class="file-name">wiki.exe</div></div><div class="file-item" onclick="toggleApp('app-calc');"><div class="file-icon">💱</div><div class="file-name">converter.exe</div></div><div class="file-item" onclick="toggleApp('app-meet');"><div class="file-icon">📹</div><div class="file-name">videoroom.exe</div></div><div class="file-item" onclick="toggleApp('app-crypto');"><div class="file-icon">📈</div><div class="file-name">crypto.exe</div></div><div class="file-item" onclick="toggleApp('app-term');"><div class="file-icon">📟</div><div class="file-name">terminal.sh</div></div></div></div></div>
+
+    <div id="app-sysmon" class="window" onmousedown="focusWin('app-sysmon')"><div class="title-bar" onmousedown="dragStart(event, 'app-sysmon')" ontouchstart="dragStart(event, 'app-sysmon')"><div class="win-controls"><div class="dot c-red" onclick="closeApp('app-sysmon')"></div><div class="dot c-yel" onclick="closeApp('app-sysmon')"></div><div class="dot c-grn"></div></div><div class="win-title">Task Manager</div></div><div class="win-content"><div class="mon-row"><div class="mon-label">PWR</div><div class="mon-bar-bg"><div class="mon-bar-fill" id="cpu-bar" style="width: 100%;"></div></div><div class="mon-val" id="cpu-val">AC_PWR</div></div><div class="mon-row"><div class="mon-label">RAM</div><div class="mon-bar-bg"><div class="mon-bar-fill" id="ram-bar" style="width: 45%; background: #38bdf8;"></div></div><div class="mon-val" id="ram-val">45%</div></div><div class="mon-row"><div class="mon-label">NET</div><div class="mon-bar-bg"><div class="mon-bar-fill" id="net-bar" style="width: 100%; background: #fcd34d;"></div></div><div class="mon-val" id="net-val">UPLINK_OK</div></div><div style="margin-top: 20px; font-family: monospace; font-size: 11px; color: #94a3b8;">Active Services:<br>> System_Node: Running<br>> API_Hook: Standby<br>> UI_Renderer: Active</div></div></div>
+
+    <div id="app-settings" class="window" onmousedown="focusWin('app-settings')"><div class="title-bar" onmousedown="dragStart(event, 'app-settings')" ontouchstart="dragStart(event, 'app-settings')"><div class="win-controls"><div class="dot c-red" onclick="closeApp('app-settings')"></div><div class="dot c-yel" onclick="closeApp('app-settings')"></div><div class="dot c-grn"></div></div><div class="win-title">Control Panel</div></div><div class="win-content"><div class="fs-section">Terminal Color</div><div style="display: flex; gap: 15px; margin-bottom: 25px;"><div style="width:30px; height:30px; border-radius:50%; background:#00ff41; cursor:pointer;" onclick="setTheme('#00ff41')"></div><div style="width:30px; height:30px; border-radius:50%; background:#38bdf8; cursor:pointer;" onclick="setTheme('#38bdf8')"></div><div style="width:30px; height:30px; border-radius:50%; background:#fcd34d; cursor:pointer;" onclick="setTheme('#fcd34d')"></div><div style="width:30px; height:30px; border-radius:50%; background:#ef4444; cursor:pointer;" onclick="setTheme('#ef4444')"></div><div style="width:30px; height:30px; border-radius:50%; background:#f8fafc; cursor:pointer;" onclick="setTheme('#f8fafc')"></div></div><div class="fs-section">Preset Wallpapers</div><div style="display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap;"><div class="wp-thumb" style="background: var(--bg-grad);" onclick="setWallpaper('var(--bg-grad)')" title="System Default"></div><div class="wp-thumb" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=200');" onclick="setWallpaper('url(https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1920)')" title="Microchip Core"></div><div class="wp-thumb" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=200');" onclick="setWallpaper('url(https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1920)')" title="Cyber Grid"></div><div class="wp-thumb" style="background-image: url('https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=200');" onclick="setWallpaper('url(https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=1920)')" title="Deep Space"></div></div><div class="fs-section">Custom Background URL</div><input type="text" id="bg-url" placeholder="Paste Image URL here..." style="width: 100%; padding: 8px; background: rgba(0,0,0,0.5); border: 1px solid var(--win-border); color: white; border-radius: 4px; font-family: monospace;" onchange="setWallpaper('url(' + this.value + ')')"></div></div>
+
+    <!-- Taskbar -->
+    <div id="taskbar">
+        <div class="start-btn" onclick="toggleStartMenu()">⊞ <span>Start</span></div>
+        <div class="dock">
+            <div class="dock-icon active" id="dock-term" title="Terminal" onclick="toggleApp('app-term')">📟</div>
+            <div class="dock-icon" id="dock-code" title="NiroCode" onclick="toggleApp('app-code')">🧑‍💻</div>
+            <div class="dock-icon" id="dock-vision" title="NiroVision" onclick="toggleApp('app-vision')">👁️</div>
+            <div class="dock-icon" id="dock-wiki" title="WikiSearch" onclick="toggleApp('app-wiki')">📚</div>
+            <div class="dock-icon" id="dock-calc" title="Converter" onclick="toggleApp('app-calc')">💱</div>
+            <div class="dock-icon" id="dock-chat" title="Comm Link" onclick="toggleApp('app-chat')">💬</div>
+            <div class="dock-icon" id="dock-files" title="File Explorer" onclick="toggleApp('app-files')">📁</div>
+            <div class="dock-icon" id="dock-settings" title="Settings" onclick="toggleApp('app-settings')">⚙️</div>
+        </div>
+    </div>
+    
+    <!-- Core Application Logic -->
+    <script src="script.js" defer></script>
+</body>
+</html>
