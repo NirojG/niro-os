@@ -16,7 +16,7 @@ if ($db->connect_error) {
     exit;
 }
 
-// IDENTIFYing the sender of the message. If the user is not logged in, they will be identified as "Ghost_Node" in the system.
+// Identifying the sender of the message. If the user is not logged in, they will be identified as "Ghost_Node" in the system.
 $sender = isset($_SESSION['username']) ? $_SESSION['username'] : "Ghost_Node";
 
 // This step is done to Save a sent message in the db
